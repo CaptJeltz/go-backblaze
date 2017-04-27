@@ -18,11 +18,13 @@ import (
 )
 
 // ListFileNames lists the names of all files in a bucket, starting at a given name.
-func (b *Bucket) ListFileNames(startFileName string, maxFileCount int) (*ListFilesResponse, error) {
+func (b *Bucket) ListFileNames(startFileName string, maxFileCount int, prefix string, delimiter *string) (*ListFilesResponse, error) {
 	request := &listFilesRequest{
 		BucketID:      b.ID,
 		StartFileName: startFileName,
 		MaxFileCount:  maxFileCount,
+		Prefix:        prefix,
+		Delimiter:     delimiter,
 	}
 	response := &ListFilesResponse{}
 

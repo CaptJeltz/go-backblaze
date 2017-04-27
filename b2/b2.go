@@ -18,6 +18,9 @@ type Options struct {
 	// Bucket
 	Bucket string `short:"b" long:"bucket" env:"B2_BUCKET" description:"The bucket to access"`
 
+	Prefix    string `short:"p" long:"prefix" env:"B2_PREFIX" description:"prefix for listFileName operation"`
+	Delimiter string `short:"s" long:"delimiter" env:"B2_DELIMITER" description:"delimiter for listFileName operation"`
+
 	Debug   bool `short:"d" long:"debug" description:"Debug API requests"`
 	Verbose bool `short:"v" long:"verbose" description:"Display verbose output"`
 }

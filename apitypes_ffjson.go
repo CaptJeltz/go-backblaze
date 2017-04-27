@@ -298,6 +298,7 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }
 
@@ -627,6 +628,7 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }
 
@@ -1145,7 +1147,7 @@ handle_FileInfo:
 
 				var k string
 
-				var v string
+				var tmp_uj__FileInfo string
 
 				tok = fs.Scan()
 				if tok == fflib.FFTok_error {
@@ -1194,7 +1196,7 @@ handle_FileInfo:
 				}
 
 				tok = fs.Scan()
-				/* handler: v type=string kind=string quoted=false*/
+				/* handler: tmp_uj__FileInfo type=string kind=string quoted=false*/
 
 				{
 
@@ -1210,12 +1212,12 @@ handle_FileInfo:
 
 						outBuf := fs.Output.Bytes()
 
-						v = string(string(outBuf))
+						tmp_uj__FileInfo = string(string(outBuf))
 
 					}
 				}
 
-				uj.FileInfo[k] = v
+				uj.FileInfo[k] = tmp_uj__FileInfo
 
 				wantVal = false
 			}
@@ -1240,6 +1242,7 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }
 
@@ -1629,6 +1632,7 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }
 
@@ -1855,13 +1859,13 @@ handle_Files:
 			uj.Files = nil
 		} else {
 
-			uj.Files = make([]FileStatus, 0)
+			uj.Files = []FileStatus{}
 
 			wantVal := true
 
 			for {
 
-				var v FileStatus
+				var tmp_uj__Files FileStatus
 
 				tok = fs.Scan()
 				if tok == fflib.FFTok_error {
@@ -1882,7 +1886,7 @@ handle_Files:
 					wantVal = true
 				}
 
-				/* handler: v type=backblaze.FileStatus kind=struct quoted=false*/
+				/* handler: tmp_uj__Files type=backblaze.FileStatus kind=struct quoted=false*/
 
 				{
 					if tok == fflib.FFTok_null {
@@ -1891,14 +1895,15 @@ handle_Files:
 						goto mainparse
 					}
 
-					err = v.UnmarshalJSONFFLexer(fs, fflib.FFParse_want_key)
+					err = tmp_uj__Files.UnmarshalJSONFFLexer(fs, fflib.FFParse_want_key)
 					if err != nil {
 						return err
 					}
 					state = fflib.FFParse_after_value
 				}
 
-				uj.Files = append(uj.Files, v)
+				uj.Files = append(uj.Files, tmp_uj__Files)
+
 				wantVal = false
 			}
 		}
@@ -1973,6 +1978,7 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }
 
@@ -2179,13 +2185,13 @@ handle_Files:
 			uj.Files = nil
 		} else {
 
-			uj.Files = make([]FileStatus, 0)
+			uj.Files = []FileStatus{}
 
 			wantVal := true
 
 			for {
 
-				var v FileStatus
+				var tmp_uj__Files FileStatus
 
 				tok = fs.Scan()
 				if tok == fflib.FFTok_error {
@@ -2206,7 +2212,7 @@ handle_Files:
 					wantVal = true
 				}
 
-				/* handler: v type=backblaze.FileStatus kind=struct quoted=false*/
+				/* handler: tmp_uj__Files type=backblaze.FileStatus kind=struct quoted=false*/
 
 				{
 					if tok == fflib.FFTok_null {
@@ -2215,14 +2221,15 @@ handle_Files:
 						goto mainparse
 					}
 
-					err = v.UnmarshalJSONFFLexer(fs, fflib.FFParse_want_key)
+					err = tmp_uj__Files.UnmarshalJSONFFLexer(fs, fflib.FFParse_want_key)
 					if err != nil {
 						return err
 					}
 					state = fflib.FFParse_after_value
 				}
 
-				uj.Files = append(uj.Files, v)
+				uj.Files = append(uj.Files, tmp_uj__Files)
+
 				wantVal = false
 			}
 		}
@@ -2271,6 +2278,7 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }
 
@@ -2459,6 +2467,7 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }
 
@@ -2788,6 +2797,7 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }
 
@@ -2976,6 +2986,7 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }
 
@@ -3259,6 +3270,7 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }
 
@@ -3496,6 +3508,7 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }
 
@@ -3684,6 +3697,7 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }
 
@@ -3918,6 +3932,7 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }
 
@@ -4204,6 +4219,7 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }
 
@@ -4441,6 +4457,7 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }
 
@@ -4629,13 +4646,13 @@ handle_Buckets:
 			uj.Buckets = nil
 		} else {
 
-			uj.Buckets = make([]*BucketInfo, 0)
+			uj.Buckets = []*BucketInfo{}
 
 			wantVal := true
 
 			for {
 
-				var v *BucketInfo
+				var tmp_uj__Buckets *BucketInfo
 
 				tok = fs.Scan()
 				if tok == fflib.FFTok_error {
@@ -4656,29 +4673,30 @@ handle_Buckets:
 					wantVal = true
 				}
 
-				/* handler: v type=*backblaze.BucketInfo kind=ptr quoted=false*/
+				/* handler: tmp_uj__Buckets type=*backblaze.BucketInfo kind=ptr quoted=false*/
 
 				{
 					if tok == fflib.FFTok_null {
 
-						v = nil
+						tmp_uj__Buckets = nil
 
 						state = fflib.FFParse_after_value
 						goto mainparse
 					}
 
-					if v == nil {
-						v = new(BucketInfo)
+					if tmp_uj__Buckets == nil {
+						tmp_uj__Buckets = new(BucketInfo)
 					}
 
-					err = v.UnmarshalJSONFFLexer(fs, fflib.FFParse_want_key)
+					err = tmp_uj__Buckets.UnmarshalJSONFFLexer(fs, fflib.FFParse_want_key)
 					if err != nil {
 						return err
 					}
 					state = fflib.FFParse_after_value
 				}
 
-				uj.Buckets = append(uj.Buckets, v)
+				uj.Buckets = append(uj.Buckets, tmp_uj__Buckets)
+
 				wantVal = false
 			}
 		}
@@ -4701,6 +4719,7 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }
 
@@ -5044,6 +5063,7 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }
 
@@ -5074,6 +5094,14 @@ func (mj *listFilesRequest) MarshalJSONBuf(buf fflib.EncodingBuffer) error {
 	fflib.WriteJsonString(buf, string(mj.StartFileName))
 	buf.WriteString(`,"maxFileCount":`)
 	fflib.FormatBits2(buf, uint64(mj.MaxFileCount), 10, mj.MaxFileCount < 0)
+	buf.WriteString(`,"prefix":`)
+	fflib.WriteJsonString(buf, string(mj.Prefix))
+	if mj.Delimiter != nil {
+		buf.WriteString(`,"delimiter":`)
+		fflib.WriteJsonString(buf, string(*mj.Delimiter))
+	} else {
+		buf.WriteString(`,"delimiter":null`)
+	}
 	buf.WriteByte('}')
 	return nil
 }
@@ -5087,6 +5115,10 @@ const (
 	ffj_t_listFilesRequest_StartFileName
 
 	ffj_t_listFilesRequest_MaxFileCount
+
+	ffj_t_listFilesRequest_Prefix
+
+	ffj_t_listFilesRequest_Delimiter
 )
 
 var ffj_key_listFilesRequest_BucketID = []byte("bucketId")
@@ -5094,6 +5126,10 @@ var ffj_key_listFilesRequest_BucketID = []byte("bucketId")
 var ffj_key_listFilesRequest_StartFileName = []byte("startFileName")
 
 var ffj_key_listFilesRequest_MaxFileCount = []byte("maxFileCount")
+
+var ffj_key_listFilesRequest_Prefix = []byte("prefix")
+
+var ffj_key_listFilesRequest_Delimiter = []byte("delimiter")
 
 func (uj *listFilesRequest) UnmarshalJSON(input []byte) error {
 	fs := fflib.NewFFLexer(input)
@@ -5162,10 +5198,26 @@ mainparse:
 						goto mainparse
 					}
 
+				case 'd':
+
+					if bytes.Equal(ffj_key_listFilesRequest_Delimiter, kn) {
+						currentKey = ffj_t_listFilesRequest_Delimiter
+						state = fflib.FFParse_want_colon
+						goto mainparse
+					}
+
 				case 'm':
 
 					if bytes.Equal(ffj_key_listFilesRequest_MaxFileCount, kn) {
 						currentKey = ffj_t_listFilesRequest_MaxFileCount
+						state = fflib.FFParse_want_colon
+						goto mainparse
+					}
+
+				case 'p':
+
+					if bytes.Equal(ffj_key_listFilesRequest_Prefix, kn) {
+						currentKey = ffj_t_listFilesRequest_Prefix
 						state = fflib.FFParse_want_colon
 						goto mainparse
 					}
@@ -5178,6 +5230,18 @@ mainparse:
 						goto mainparse
 					}
 
+				}
+
+				if fflib.SimpleLetterEqualFold(ffj_key_listFilesRequest_Delimiter, kn) {
+					currentKey = ffj_t_listFilesRequest_Delimiter
+					state = fflib.FFParse_want_colon
+					goto mainparse
+				}
+
+				if fflib.SimpleLetterEqualFold(ffj_key_listFilesRequest_Prefix, kn) {
+					currentKey = ffj_t_listFilesRequest_Prefix
+					state = fflib.FFParse_want_colon
+					goto mainparse
 				}
 
 				if fflib.SimpleLetterEqualFold(ffj_key_listFilesRequest_MaxFileCount, kn) {
@@ -5223,6 +5287,12 @@ mainparse:
 
 				case ffj_t_listFilesRequest_MaxFileCount:
 					goto handle_MaxFileCount
+
+				case ffj_t_listFilesRequest_Prefix:
+					goto handle_Prefix
+
+				case ffj_t_listFilesRequest_Delimiter:
+					goto handle_Delimiter
 
 				case ffj_t_listFilesRequestno_such_key:
 					err = fs.SkipField(tok)
@@ -5320,6 +5390,62 @@ handle_MaxFileCount:
 	state = fflib.FFParse_after_value
 	goto mainparse
 
+handle_Prefix:
+
+	/* handler: uj.Prefix type=string kind=string quoted=false*/
+
+	{
+
+		{
+			if tok != fflib.FFTok_string && tok != fflib.FFTok_null {
+				return fs.WrapErr(fmt.Errorf("cannot unmarshal %s into Go value for string", tok))
+			}
+		}
+
+		if tok == fflib.FFTok_null {
+
+		} else {
+
+			outBuf := fs.Output.Bytes()
+
+			uj.Prefix = string(string(outBuf))
+
+		}
+	}
+
+	state = fflib.FFParse_after_value
+	goto mainparse
+
+handle_Delimiter:
+
+	/* handler: uj.Delimiter type=string kind=string quoted=false*/
+
+	{
+
+		{
+			if tok != fflib.FFTok_string && tok != fflib.FFTok_null {
+				return fs.WrapErr(fmt.Errorf("cannot unmarshal %s into Go value for string", tok))
+			}
+		}
+
+		if tok == fflib.FFTok_null {
+
+			uj.Delimiter = nil
+
+		} else {
+
+			var tval string
+			outBuf := fs.Output.Bytes()
+
+			tval = string(string(outBuf))
+			uj.Delimiter = &tval
+
+		}
+	}
+
+	state = fflib.FFParse_after_value
+	goto mainparse
+
 wantedvalue:
 	return fs.WrapErr(fmt.Errorf("wanted value token, but got token: %v", tok))
 wrongtokenerror:
@@ -5334,6 +5460,7 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }
 
@@ -5568,5 +5695,6 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }

@@ -47,7 +47,11 @@ func (o *List) Execute(args []string) error {
 			}
 		}
 	} else {
-		response, err := bucket.ListFileNames("", 100)
+		delimiter := &opts.Delimiter
+		if *delimiter == "" {
+			delimiter = nil
+		}
+		response, err := bucket.ListFileNames("", 100, opts.Prefix, delimiter)
 		if err != nil {
 			return err
 		}

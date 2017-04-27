@@ -117,9 +117,11 @@ type File struct {
 }
 
 type listFilesRequest struct {
-	BucketID      string `json:"bucketId"`
-	StartFileName string `json:"startFileName"`
-	MaxFileCount  int    `json:"maxFileCount"`
+	BucketID      string  `json:"bucketId"`
+	StartFileName string  `json:"startFileName"`
+	MaxFileCount  int     `json:"maxFileCount"`
+	Prefix        string  `json:"prefix"`
+	Delimiter     *string `json:"delimiter"`
 }
 
 // ListFilesResponse lists a page of files stored in a B2 bucket
