@@ -13,8 +13,10 @@ import (
 )
 
 const (
-	b2Host = "https://api.backblazeb2.com"
-	v1     = "/b2api/v1/"
+	b2Host          = "https://api.backblazeb2.com"
+	v1              = "/b2api/v1/"
+	DownloadRequest = 1
+	APIRequest      = 2
 )
 
 // Credentials are the identification required by the Backblaze B2 API
@@ -150,7 +152,7 @@ func (c *B2) DownloadURL() (string, error) {
 }
 
 // Create an authorized request using the client's credentials
-func (c *B2) authRequest(method, apiPath string, body io.Reader) (*http.Request, *authorizationState, error) {
+func (c *B2) authRequest(method, apiPath string, body io.Reader, requestType uint8) (*http.Request, *authorizationState, error) {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
 
@@ -163,7 +165,12 @@ func (c *B2) authRequest(method, apiPath string, body io.Reader) (*http.Request,
 		}
 	}
 
-	path := c.auth.APIEndpoint + v1 + apiPath
+	path := v1 + apiPath
+	if requestType == APIRequest {
+		path = c.auth.APIEndpoint + path
+	} else {
+		path = c.auth.DownloadURL + path
+	}
 
 	req, err := http.NewRequest(method, path, body)
 	if err != nil {
@@ -180,8 +187,8 @@ func (c *B2) authRequest(method, apiPath string, body io.Reader) (*http.Request,
 }
 
 // Dispatch an authorized API GET request
-func (c *B2) authGet(apiPath string) (*http.Response, *authorizationState, error) {
-	req, auth, err := c.authRequest("GET", apiPath, nil)
+func (c *B2) authGet(apiPath string, requestType uint8) (*http.Response, *authorizationState, error) {
+	req, auth, err := c.authRequest("GET", apiPath, nil, requestType)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -191,8 +198,8 @@ func (c *B2) authGet(apiPath string) (*http.Response, *authorizationState, error
 }
 
 // Dispatch an authorized POST request
-func (c *B2) authPost(apiPath string, body io.Reader) (*http.Response, *authorizationState, error) {
-	req, auth, err := c.authRequest("POST", apiPath, body)
+func (c *B2) authPost(apiPath string, body io.Reader, requestType uint8) (*http.Response, *authorizationState, error) {
+	req, auth, err := c.authRequest("POST", apiPath, body, requestType)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -253,7 +260,7 @@ func (c *B2) parseResponse(resp *http.Response, result interface{}, auth *author
 }
 
 // Perform a B2 API request with the provided request and response objects
-func (c *B2) apiRequest(apiPath string, request interface{}, response interface{}) error {
+func (c *B2) apiRequest(apiPath string, request interface{}, response interface{}, requestType uint8) error {
 	body, err := ffjson.Marshal(request)
 	if err != nil {
 		return err
@@ -265,7 +272,7 @@ func (c *B2) apiRequest(apiPath string, request interface{}, response interface{
 		log.Printf("apiRequest: %s %s", apiPath, body)
 	}
 
-	err = c.tryAPIRequest(apiPath, body, response)
+	err = c.tryAPIRequest(apiPath, body, response, requestType)
 
 	// Retry after non-fatal errors
 	if b2err, ok := err.(*B2Error); ok {
@@ -274,14 +281,14 @@ func (c *B2) apiRequest(apiPath string, request interface{}, response interface{
 				log.Printf("Retrying request %q due to error: %v", apiPath, err)
 			}
 
-			return c.tryAPIRequest(apiPath, body, response)
+			return c.tryAPIRequest(apiPath, body, response, requestType)
 		}
 	}
 	return err
 }
 
-func (c *B2) tryAPIRequest(apiPath string, body []byte, response interface{}) error {
-	resp, auth, err := c.authPost(apiPath, bytes.NewReader(body))
+func (c *B2) tryAPIRequest(apiPath string, body []byte, response interface{}, requestType uint8) error {
+	resp, auth, err := c.authPost(apiPath, bytes.NewReader(body), requestType)
 	if err != nil {
 		if c.Debug {
 			log.Println("B2.post returned an error: ", err)

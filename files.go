@@ -26,7 +26,7 @@ func (b *Bucket) ListFileNames(startFileName string, maxFileCount int) (*ListFil
 	}
 	response := &ListFilesResponse{}
 
-	if err := b.b2.apiRequest("b2_list_file_names", request, response); err != nil {
+	if err := b.b2.apiRequest("b2_list_file_names", request, response, APIRequest); err != nil {
 		return nil, err
 	}
 
@@ -159,7 +159,7 @@ func (b *Bucket) GetFileInfo(fileID string) (*File, error) {
 	}
 	response := &File{}
 
-	if err := b.b2.apiRequest("b2_get_file_info", request, response); err != nil {
+	if err := b.b2.apiRequest("b2_get_file_info", request, response, APIRequest); err != nil {
 		return nil, err
 	}
 
@@ -189,7 +189,7 @@ func (c *B2) DownloadFileByID(fileID string) (*File, io.ReadCloser, error) {
 }
 
 func (c *B2) tryDownloadFileByID(requestBody []byte) (*File, io.ReadCloser, error) {
-	resp, auth, err := c.authPost("b2_download_file_by_id", bytes.NewReader(requestBody))
+	resp, auth, err := c.authPost("b2_download_file_by_id", bytes.NewReader(requestBody), DownloadRequest)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -341,7 +341,7 @@ func (b *Bucket) ListFileVersions(startFileName, startFileID string, maxFileCoun
 	}
 	response := &ListFileVersionsResponse{}
 
-	if err := b.b2.apiRequest("b2_list_file_versions", request, response); err != nil {
+	if err := b.b2.apiRequest("b2_list_file_versions", request, response, APIRequest); err != nil {
 		return nil, err
 	}
 
@@ -361,7 +361,7 @@ func (b *Bucket) DeleteFileVersion(fileName, fileID string) (*FileStatus, error)
 	}
 	response := &FileStatus{}
 
-	if err := b.b2.apiRequest("b2_delete_file_version", request, response); err != nil {
+	if err := b.b2.apiRequest("b2_delete_file_version", request, response, APIRequest); err != nil {
 		return nil, err
 	}
 
@@ -378,7 +378,7 @@ func (b *Bucket) HideFile(fileName string) (*FileStatus, error) {
 	}
 	response := &FileStatus{}
 
-	if err := b.b2.apiRequest("b2_hide_file", request, response); err != nil {
+	if err := b.b2.apiRequest("b2_hide_file", request, response, APIRequest); err != nil {
 		return nil, err
 	}
 
